@@ -3,10 +3,17 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const Navigation = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { session } = useAuth();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+  };
 
   const navItems = [
     { path: "/", label: "Home" },
@@ -44,9 +51,17 @@ const Navigation = () => {
                 {item.label}
               </Link>
             ))}
-            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
-              Sign In
-            </Button>
+            {session ? (
+              <Button onClick={handleSignOut} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                Sign Out
+              </Button>
+            ) : (
+              <Link to="/auth">
+                <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -78,9 +93,17 @@ const Navigation = () => {
                   {item.label}
                 </Link>
               ))}
-              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-fit">
-                Sign In
-              </Button>
+              {session ? (
+                <Button onClick={() => { handleSignOut(); setIsMenuOpen(false); }} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-fit">
+                  Sign Out
+                </Button>
+              ) : (
+                <Link to="/auth" onClick={() => setIsMenuOpen(false)}>
+                  <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 w-fit">
+                    Sign In
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         )}
