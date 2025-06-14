@@ -12,6 +12,7 @@ import Analytics from "./pages/Analytics";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
+import AdminRoute from "./components/AdminRoute";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,9 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/create" element={<CreateSurvey />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/create" element={<CreateSurvey />} />
+            </Route>
             <Route path="/survey/:id" element={<TakeSurvey />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/contact" element={<Contact />} />

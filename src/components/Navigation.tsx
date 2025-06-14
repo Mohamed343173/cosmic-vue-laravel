@@ -1,4 +1,3 @@
-
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -9,18 +8,25 @@ import { supabase } from "@/integrations/supabase/client";
 const Navigation = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { session } = useAuth();
+  const { session, role } = useAuth();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
   };
 
-  const navItems = [
+  const allNavItems = [
     { path: "/", label: "Home" },
     { path: "/create", label: "Create Survey" },
     { path: "/analytics", label: "Analytics" },
     { path: "/contact", label: "Contact" }
   ];
+
+  const navItems = allNavItems.filter(item => {
+    if (item.path === '/create') {
+      return role === 'admin';
+    }
+    return true;
+  });
 
   const isActive = (path: string) => location.pathname === path;
 
