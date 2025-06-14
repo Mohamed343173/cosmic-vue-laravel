@@ -157,25 +157,23 @@ const CreateSurvey = () => {
                     <div className="space-y-2 mt-2">
                       {question.options?.map((option, optIndex) => (
                         <div key={optIndex} className="flex items-center gap-2">
-                          <RadioGroup>
-                            <div className="flex items-center space-x-2">
-                              <RadioGroupItem value={option} id={`${question.id}-${optIndex}`} disabled />
-                              <Input
-                                value={option}
-                                onChange={(e) => updateOption(question.id, optIndex, e.target.value)}
-                                className="flex-1"
-                              />
-                              {question.options && question.options.length > 1 && (
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  onClick={() => removeOption(question.id, optIndex)}
-                                  className="text-red-500 hover:text-red-700"
-                                >
-                                  <X size={14} />
-                                </Button>
-                              )}
-                            </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value={option} id={`${question.id}-${optIndex}`} disabled />
+                            <Input
+                              value={option}
+                              onChange={(e) => updateOption(question.id, optIndex, e.target.value)}
+                              className="flex-1"
+                            />
+                            {question.options && question.options.length > 1 && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeOption(question.id, optIndex)}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                <X size={14} />
+                              </Button>
+                            )}
                           </div>
                         </div>
                       ))}
