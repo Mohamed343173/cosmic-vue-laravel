@@ -1,3 +1,4 @@
+
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -18,11 +19,12 @@ const Navigation = () => {
     { path: "/", label: "Home" },
     { path: "/create", label: "Create Survey" },
     { path: "/analytics", label: "Analytics" },
+    { path: "/profiles", label: "Profiles" },
     { path: "/contact", label: "Contact" }
   ];
 
   const navItems = allNavItems.filter(item => {
-    if (item.path === '/create') {
+    if (item.path === '/create' || item.path === '/profiles') {
       return role === 'admin';
     }
     return true;

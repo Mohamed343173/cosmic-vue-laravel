@@ -13,6 +13,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import AdminRoute from "./components/AdminRoute";
+import ProfilesPage from "./pages/Profiles";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route element={<AdminRoute />}>
               <Route path="/create" element={<CreateSurvey />} />
+              <Route path="/profiles" element={<ProfilesPage />} />
             </Route>
             <Route path="/survey/:id" element={<TakeSurvey />} />
             <Route path="/analytics" element={<Analytics />} />
